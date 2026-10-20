@@ -83,8 +83,29 @@ local function path_for_current_buffer()
   return vim.bo.filetype ~= "" and vim.bo.filetype or "[No Name]"
 end
 
+-- local function statusline_hl(hl)
+--   return "%#" .. hl .. "#"
+-- end
+
 local function statusline_hl(hl)
-  return "%#" .. hl .. "#"
+  local icon_hl = vim.api.nvim_get_hl(0, {
+    name = hl,
+    link = false,
+  })
+
+  local section_hl = vim.api.nvim_get_hl(0, {
+    name = "lualine_c_normal",
+    link = false,
+  })
+
+  vim.api.nvim_set_hl(0, "RealIconsLualine", {
+    fg = icon_hl.fg,
+    bg = section_hl.bg,
+    bold = icon_hl.bold,
+    italic = icon_hl.italic,
+  })
+
+  return "%#RealIconsLualine#"
 end
 
 function M.component(opts)
