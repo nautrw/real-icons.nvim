@@ -127,10 +127,6 @@ function M.apply_config(user_config, opts)
     end
   end
 
-  if not inserted and opts.default_section ~= false then
-    config = vim.tbl_deep_extend("force", M.opts(opts), config)
-  end
-
   return config
 end
 
